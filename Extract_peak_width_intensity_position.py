@@ -17,39 +17,31 @@ def file_index(index):
     elif len(str(index)) == 4:
         return str(index)
 
-def read_data(total_num_scan, index, basefile_paths):
+def read_data(total_num_scan, index, basefile_path):
     peak_position = []
     peak_intensity = []
     peak_width = []
-    for basefile_path in basefile_paths:    
-        while (index <= total_num_scan):
-            print 'processing', basefile_path + file_index(index) + 'bckgrd_subtracted_peak_analysis_Voigt.csv'  
-            file_name = basefile_path + file_index(index) + 'bckgrd_subtracted_peak_analysis_Voigt.csv'
-            peak_info = np.genfromtxt(file_name, delimiter=',', skip_header = 0)
-            peak_position.append(peak_info[1][0])
-            peak_intensity.append(peak_info[1][1])
-            peak_width.append(peak_info[1][2])                
-            index += 1
-        index = 1
+    while (index <= total_num_scan):
+        print 'processing', basefile_path + file_index(index) + '_bckgrd_subtracted_peak_fitting_Voigt.csv'
+        file_name = basefile_path + file_index(index) + '_bckgrd_subtracted_peak_fitting_Voigt.csv'
+        peak_info = np.genfromtxt(file_name, delimiter=',', skip_header = 0)
+        peak_position.append(peak_info[0])
+        peak_intensity.append(peak_info[1])
+        peak_width.append(peak_info[2])
+        #print peak_info
+        index += 1
     return peak_position, peak_intensity, peak_width
 
 
 ## user input
-folder_path = 'C:\\Research_FangRen\\Data\\July2016\\CoZrFe_ternary\\1D\\Sample16\\background_subtracted\\peak_fit_threePeaks_Voigt\\'
-base_filename1 = 'Sample16_2thin_24x24_t30_'
-base_filename2 = 'Sample14_7thin_24x24_t30_'
-base_filename3 = 'Sample17_24x24_t30_'
+folder_path = 'C:\\Research_FangRen\Data\\Metallic_glasses_data\\CoZrFe_ternary\\1D\\peak_fitting_voigt\\'
+base_filename1 = 'Sample3_24x24_t30_'
 total_num_scan = 441
 
 ## Initialization
 basefile_path1 = folder_path + base_filename1
-basefile_path2 = folder_path + base_filename2
-basefile_path3 = folder_path + base_filename3
-basefile_paths = [basefile_path1]
 index = 1;
 
 
-peak_position, peak_intensity, peak_width = read_data(total_num_scan, index, basefile_paths)
-np.savetxt(folder_path + 'peak_position.csv', peak_position, delimiter = ',')
-np.savetxt(folder_path + 'peak_width.csv', peak_width, delimiter = ',')
-np.savetxt(folder_path + 'peak_intensity.csv', peak_intensity, delimiter = ',')
+peak_position, peak_intensity, peak_width = read_data(total_num_scan, index, basefile_path1)
+np.savetxt(folder_path + 'peak_info.csv', np.concatenate(([peak_position], [peak_width], [peak_intensity])).T, header = 'peak_position, peak_width, peak_intensity', delimiter = ',')

@@ -37,7 +37,7 @@ def plt_ternary_save(data, tertitle='',  labelNames=('Species A','Species B','Sp
     """
     if sv:
         font = {'size': 12}   # Set font size for **kwargs
-        figsize = (8, 5)
+        figsize = (3.4, 2.5)
         ticksize = 6
         lnwdth = 0.5
         lnsty = '--'
@@ -70,16 +70,16 @@ def plt_ternary_save(data, tertitle='',  labelNames=('Species A','Species B','Sp
     figure, tax = ternary.figure(ax=ax, scale=scale)
 
     # Axis Labels (bottom corrisponds to x values, left corrisponds to y values)
-    tax.bottom_axis_label(labelNames[1], offset=0, **font)
-    tax.left_axis_label(labelNames[2], offset=0.12, **font)
-    tax.right_axis_label(labelNames[0], offset=0.12, **font)
+    tax.bottom_axis_label(labelNames[1], offset=-0.1, **font)
+    tax.left_axis_label(labelNames[2], offset=0.17, **font)
+    tax.right_axis_label(labelNames[0], offset=0.17, **font)
 
     # Plot data, boundary, gridlines, and ticks
     tax.heatmap(d, style=style, cmap=cmap, cbarlabel=cbl, vmin=vmin, vmax=vmax, colorbar=cb)
     tax.boundary(linewidth=1)
     tax.gridlines(multiple=10, linewidth=lnwdth, alpha=alpha, linestyle=lnsty)
     ticks = [round(i / float(scale), 1) for i in range(0, scale+1, 10)]
-    tax.ticks(ticks=ticks, axis='rlb', linewidth=1, clockwise=False, offset=0.015, textsize=ticksize)
+    tax.ticks(ticks=ticks, axis='rlb', linewidth=1, clockwise=False, offset=0.03, textsize=ticksize)
 
     # Set chart title
     tax.set_title(tertitle)
@@ -91,7 +91,7 @@ def plt_ternary_save(data, tertitle='',  labelNames=('Species A','Species B','Sp
 
     # Save or show
     if sv:
-        plt.savefig(''.join([svpth, svflnm]), dpi=300)
+        plt.savefig(''.join([svpth, svflnm]), dpi=600)
     else:
         tax.show()
 
@@ -147,7 +147,7 @@ def plt_tern_scatter(data, tertitle='',  labelNames=('Species A','Species B','Sp
     plt.axis('off')
 
     if sv:
-        plt.savefig(''.join([svpth, svflnm]), dpi=300)
+        plt.savefig(''.join([svpth, svflnm]), dpi=600)
     else:
         tax.show()
         
