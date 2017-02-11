@@ -26,14 +26,14 @@ def read_data(total_num_scan, index, basefile_paths):
     for basefile_path in basefile_paths:
         #print basefile_path
         while (index <= total_num_scan):
-            #file_name = basefile_path + file_index(index) + 'bckgrd_subtracted.csv'
-            file_name = basefile_path + file_index(index) + '_1D.csv'
+            file_name = basefile_path + file_index(index) + '_bckgrd_subtracted.csv'
+            #file_name = basefile_path + file_index(index) + '_1D.csv'
             if os.path.exists(file_name):
                 #print 'importing', basefile_path + file_index(index) + 'bckgrd_subtracted.csv'
                 print 'importing', basefile_path + file_index(index) + '_1D.csv'
                 spectrum = np.genfromtxt(file_name, delimiter=',', skip_header = 0)
-                #data.append(spectrum[:,1][-929:])
-                data.append(spectrum[:,1][:1000])
+                data.append(spectrum[:,1][:-19])
+                #data.append(spectrum[:,1][:1000])
                 index += 1
             else:
                 index += 1
@@ -43,7 +43,7 @@ def read_data(total_num_scan, index, basefile_paths):
     
 
 ## user input
-folder_path = 'C:\\Research_FangRen\\Data\\July2016\\CoZrFe_ternary\\1D\\raw_1D\\'
+folder_path = 'C:\\Research_FangRen\Data\\Metallic_glasses_data\\CoZrFe_ternary\\1D\\bckgrd_subtracted_1D\\'
 base_filename1 = 'Sample1_24x24_t30_'
 base_filename2 = 'Sample3_24x24_t30_'
 base_filename3 = 'Sample16_2thin_24x24_t30_'
@@ -77,7 +77,6 @@ plt.title('Euclidean distance')
 plt.pcolormesh(X, Y, distance_map)
 plt.xlim((1, data.shape[0]))
 plt.ylim((1, data.shape[0]))
-plt.show()
 
 
 # generate a cosine distance map
@@ -87,7 +86,6 @@ plt.title('Cosine distance')
 plt.pcolormesh(X, Y, distance_map)
 plt.xlim((1, data.shape[0]))
 plt.ylim((1, data.shape[0]))
-plt.show()
 
 
 # generate a cityblock distance map
@@ -97,4 +95,3 @@ plt.title('Cityblock distance')
 plt.pcolormesh(X, Y, distance_map)
 plt.xlim((1, data.shape[0]))
 plt.ylim((1, data.shape[0]))
-plt.show()
