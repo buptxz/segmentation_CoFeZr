@@ -7,8 +7,9 @@ Created on Feb 8, 2017
 import os.path
 import matplotlib.pyplot as plt
 import numpy as np
-from scipy.optimize import minimize, basinhopping
+from scipy.optimize import basinhopping
 from scipy.interpolate import interp1d
+from numpy.polynomial.chebyshev import chebval
 
 
 def set_window(windows_size, Q_original, intensity_original):
@@ -33,23 +34,17 @@ def file_index(index):
 
 def func(x, *params):
     params = params[0]
-    A = params[0]
-    B = params[1]
-    C = params[2]
-    D = params[3]
+    y = chebval(x, params[:4])
     E = params[4]
-    y = A + B*x + C * (x**2) + D * (x**3) + E /x
+    y = y + E /x
     return y
 
 def object_func(*params):
     params = params[0]
     J = 0
-    A = params[0]
-    B = params[1]
-    C = params[2]
-    D = params[3]
+    fit = chebval(Q, params[:4])
     E = params[4]
-    fit = A + B*Q + C * (Q**2) + D * (Q**3) + E/Q
+    fit = fit + E/Q
     for i in range(len(intensity)):
         if Q[i] < 1:
             if intensity[i] < fit[i]:
@@ -67,7 +62,7 @@ def object_func(*params):
 # set folder and save path
 path = 'C:\\Research_FangRen\\Data\\Metallic_glasses_data\\CoZrFe_ternary\\1D\\raw_1D'
 save_path = 'C:\\Research_FangRen\Data\\Metallic_glasses_data\\CoZrFe_ternary\\1D\\bckgrd_subtracted_1D'
-basename = 'Sample16_2thin_24x24_t30_'
+basename = 'Sample3_24x24_t30_'
 
 index = 1
 total_num_scan = 441
