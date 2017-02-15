@@ -7,13 +7,12 @@ Created on Tue Aug 02 14:20:44 2016
 
 import numpy as np
 import os
-from sklearn.cluster import DBSCAN
+from sklearn.cluster import SpectralClustering
 import imp
 from scipy.spatial.distance import cdist
 from os.path import join
 import scipy.io
 from PIL import Image
-import matplotlib.pyplot as plt
 
 plotTernary = imp.load_source("plt_ternary_save", "plotTernary.py")
 
@@ -65,10 +64,10 @@ def read_data(total_num_scan, index, basefile_paths):
     return np.array(data)
 
 
-def DBSCAN_clustering(distance, window=0.001, sample=10):
-    labels = DBSCAN(eps=window, metric='precomputed', min_samples=sample).fit_predict(distance)
+def spectra(similarity, clusters):
+    cl = SpectralClustering(n_clusters=clusters, affinity = 'precomputed', eigen_solver='arpack')
+    labels = cl.fit_predict(similarity)
     return labels
-
 
 ## user input
 folder_path = 'C:\\Research_FangRen\\Data\\Metallic_glasses_data\\CoZrFe_ternary\\Qchi\\'
@@ -82,7 +81,7 @@ basefile_path1 = folder_path + base_filename1
 basefile_path2 = folder_path + base_filename2
 basefile_path3 = folder_path + base_filename3
 basefile_paths = [basefile_path1, basefile_path2, basefile_path3]
-#basefile_paths = [basefile_path1]
+
 save_path = 'C:\\Research_FangRen\\Data\\Metallic_glasses_data\\CoZrFe_ternary\\1D\\Clustering\\'
 
 index = 1;
@@ -105,7 +104,6 @@ data2 = np.genfromtxt(filename2, delimiter=',', skip_header=1)
 data3 = np.genfromtxt(filename3, delimiter=',', skip_header=1)
 
 masterdata = np.concatenate((data1[:, :69], data2[:, :69], data3[:, :69]))
-#masterdata = data1[:, :69]
 
 # use ROI to filter bad data
 ROI = masterdata[:, 15]
@@ -114,12 +112,14 @@ data = data[ROI > 20000]
 
 # DBSCAN clustering
 distance = cdist(data, data, 'cosine')
+similarity = 1 - distance
 
 
-labels = DBSCAN_clustering(distance, 0.0001, 5)
+
+labels = spectra(similarity, 7)
 
 # save result
-np.savetxt(join(save_path, 'DBSCAN_2d_precomputed.csv'), labels, delimiter=',')
+np.savetxt(join(save_path, 'Spectra_2d_precomputed.csv'), labels, delimiter=',')
 
 # plotting
 Co = masterdata[:, 58] * 100
@@ -130,5 +130,5 @@ ternary_data = np.concatenate(([Co], [Fe], [Zr], [labels]), axis=0)
 ternary_data = np.transpose(ternary_data)
 
 plotTernary.plt_ternary_save(ternary_data, tertitle='', labelNames=('Co', 'Fe', 'Zr'), scale=100,
-                             sv=True, svpth=save_path, svflnm='DBSCAN_2d_precomputed',
+                             sv=True, svpth=save_path, svflnm='Spectra_2d_precomputed',
                              cbl='Scale', vmin=0.2, vmax=1.4, cmap='viridis', cb=True, style='h')
