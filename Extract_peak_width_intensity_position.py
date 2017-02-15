@@ -22,12 +22,12 @@ def read_data(total_num_scan, index, basefile_path):
     peak_intensity = []
     peak_width = []
     while (index <= total_num_scan):
-        print 'processing', basefile_path + file_index(index) + '_bckgrd_subtracted_peak_fitting_Voigt.csv'
-        file_name = basefile_path + file_index(index) + '_bckgrd_subtracted_peak_fitting_Voigt.csv'
+        print 'processing', basefile_path + file_index(index) + '_bckgrd_subtracted_peak_analysis_GLS.csv'
+        file_name = basefile_path + file_index(index) + '_bckgrd_subtracted_peak_analysis_GLS.csv'
         peak_info = np.genfromtxt(file_name, delimiter=',', skip_header = 0)
-        peak_position.append(peak_info[0])
-        peak_intensity.append(peak_info[1])
-        peak_width.append(peak_info[2])
+        peak_position.append(peak_info[1][0])
+        peak_intensity.append(peak_info[1][1])
+        peak_width.append(peak_info[1][2])
         #print peak_info
         index += 1
     return peak_position, peak_intensity, peak_width
@@ -35,7 +35,7 @@ def read_data(total_num_scan, index, basefile_path):
 
 ## user input
 folder_path = 'C:\\Research_FangRen\Data\\Metallic_glasses_data\\CoZrFe_ternary\\1D\\peak_fitting_voigt\\'
-base_filename1 = 'Sample3_24x24_t30_'
+base_filename1 = 'Sample16_2thin_24x24_t30_'
 total_num_scan = 441
 
 ## Initialization
