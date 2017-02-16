@@ -8,7 +8,7 @@ Created on Tue Aug 02 14:20:44 2016
 
 import numpy as np
 import os
-from sklearn.cluster import DBSCAN
+from sklearn.manifold import TSNE, MDS
 import imp
 from scipy.spatial.distance import cdist
 from os.path import join
@@ -48,10 +48,6 @@ def read_data(total_num_scan, index, basefile_paths):
     return np.array(data)
 
 
-def DBSCAN_clustering(distance, window = 0.001, sample = 10):
-    labels = DBSCAN(eps=window, metric = 'precomputed', min_samples=sample).fit_predict(distance)
-    return labels
-           
       
 ## user input
 folder_path = 'C:\\Research_FangRen\\Data\\Metallic_glasses_data\\CoZrFe_ternary\\1D\\bckgrd_subtracted_1D\\'
@@ -98,17 +94,17 @@ ROI = masterdata[:, 15]
 masterdata = masterdata[ROI > 20000]
 data = data[ROI > 20000]
 
-
-# DBSCAN clustering
 distance = cdist(data, data, 'cosine')
 
+class_1 = TSNE(n_components= 2, metric= 'cosine')
+result_1 = class_1.fit_transform(data)
 
+class_2 = MDS(n_components= 2, dissimilarity= 'precomputed')
+result_2 = class_2.fit_transform(distance)
 
-
-
-labels = DBSCAN_clustering(distance, 0.0009, 5)
 # save result
-np.savetxt(join(save_path, 'DBSCAN_1d_precomputed.csv'), labels, delimiter=',')
+results = np.concatenate((result_1, result_2), axis = 1)
+np.savetxt(join(save_path, 'Dimensionality_reduction_1d_precomputed.csv'), results, delimiter=',')
 
 
 # plotting
@@ -118,9 +114,33 @@ Zr = masterdata[:,60]*100
 
 
 
-ternary_data = np.concatenate(([Co],[Fe],[Zr],[labels]), axis = 0)
+ternary_data = np.concatenate(([Co],[Fe],[Zr],[result_1[:,0]]), axis = 0)
 ternary_data = np.transpose(ternary_data)
 
 plotTernary.plt_ternary_save(ternary_data, tertitle='',  labelNames=('Co','Fe','Zr'), scale=100,
-                       sv=True, svpth=save_path, svflnm='DBSCAN_1d_precomputed',
+                       sv=True, svpth=save_path, svflnm='TSNE_precomputed_1',
+                       cbl='Scale', cmap='viridis', cb=True, style='h')
+
+
+ternary_data = np.concatenate(([Co],[Fe],[Zr],[result_1[:,1]]), axis = 0)
+ternary_data = np.transpose(ternary_data)
+
+plotTernary.plt_ternary_save(ternary_data, tertitle='',  labelNames=('Co','Fe','Zr'), scale=100,
+                       sv=True, svpth=save_path, svflnm='TSNE_precomputed_2',
+                       cbl='Scale', cmap='viridis', cb=True, style='h')
+
+
+ternary_data = np.concatenate(([Co],[Fe],[Zr],[result_2[:,0]]), axis = 0)
+ternary_data = np.transpose(ternary_data)
+
+plotTernary.plt_ternary_save(ternary_data, tertitle='',  labelNames=('Co','Fe','Zr'), scale=100,
+                       sv=True, svpth=save_path, svflnm='MSD_1d_precomputed_1',
+                       cbl='Scale', cmap='viridis', cb=True, style='h')
+
+
+ternary_data = np.concatenate(([Co],[Fe],[Zr],[result_2[:,1]]), axis = 0)
+ternary_data = np.transpose(ternary_data)
+
+plotTernary.plt_ternary_save(ternary_data, tertitle='',  labelNames=('Co','Fe','Zr'), scale=100,
+                       sv=True, svpth=save_path, svflnm='MSD_1d_precomputed_2',
                        cbl='Scale', cmap='viridis', cb=True, style='h')

@@ -131,4 +131,4 @@ ternary_data = np.transpose(ternary_data)
 
 plotTernary.plt_ternary_save(ternary_data, tertitle='', labelNames=('Co', 'Fe', 'Zr'), scale=100,
                              sv=True, svpth=save_path, svflnm='Spectra_2d_precomputed',
-                             cbl='Scale', vmin=0.2, vmax=1.4, cmap='viridis', cb=True, style='h')
+                             cbl='Scale', cmap='viridis', cb=True, style='h')

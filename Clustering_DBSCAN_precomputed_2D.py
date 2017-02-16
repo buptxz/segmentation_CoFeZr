@@ -116,7 +116,7 @@ data = data[ROI > 20000]
 distance = cdist(data, data, 'cosine')
 
 
-labels = DBSCAN_clustering(distance, 0.0001, 5)
+labels = DBSCAN_clustering(distance, 0.0007, 6)
 
 # save result
 np.savetxt(join(save_path, 'DBSCAN_2d_precomputed.csv'), labels, delimiter=',')
@@ -131,4 +131,4 @@ ternary_data = np.transpose(ternary_data)
 
 plotTernary.plt_ternary_save(ternary_data, tertitle='', labelNames=('Co', 'Fe', 'Zr'), scale=100,
                              sv=True, svpth=save_path, svflnm='DBSCAN_2d_precomputed',
-                             cbl='Scale', vmin=0.2, vmax=1.4, cmap='viridis', cb=True, style='h')
+                             cbl='Scale', cmap='viridis', cb=True, style='h')
