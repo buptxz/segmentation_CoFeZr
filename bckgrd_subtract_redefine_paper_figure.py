@@ -61,7 +61,7 @@ def object_func(*params):
 
 # set folder and save path
 path = 'C:\\Research_FangRen\\Data\\Metallic_glasses_data\\CoZrFe_ternary\\1D\\raw_1D'
-save_path = 'C:\\Research_FangRen\Data\\Metallic_glasses_data\\CoZrFe_ternary\\1D\\bckgrd_subtracted_1D'
+save_path = 'C:\\Research_FangRen\\Data\\Metallic_glasses_data\\CoZrFe_ternary\\Masterfiles\\high\\plots\\'
 basename = 'Sample3_24x24_t30_'
 
 # 1
@@ -81,14 +81,14 @@ f = interp1d(Q, bckgrd_sparse, kind='cubic', bounds_error=False)
 bckgrd = f(Q_original)
 
 # save the plot
-plt.figure(1, figsize = (11, 12))
+plt.figure(1, figsize = (5, 6))
 plt.subplot(421)
-plt.plot(Q_original, intensity_original)
-plt.plot(Q, intensity, 'o')
-plt.plot(Q, bckgrd_sparse, 'o', c = 'r')
+plt.plot(Q_original, intensity_original, 'b')
+plt.plot(Q, intensity, 'o',  c = 'g', markersize = 2)
+plt.plot(Q, bckgrd_sparse, 'o', c = 'r', markersize = 2)
 plt.xlim(0.8, 5.8)
 plt.subplot(423)
-plt.plot(Q_original, intensity_original-bckgrd)
+plt.plot(Q_original, intensity_original-bckgrd, 'm')
 plt.plot(Q, [0] * len(Q), 'r--')
 plt.xlim(0.8, 5.8)
 
@@ -111,12 +111,12 @@ bckgrd = f(Q_original)
 
 # save the plot
 plt.subplot(422)
-plt.plot(Q_original, intensity_original)
-plt.plot(Q, intensity, 'o')
-plt.plot(Q, bckgrd_sparse, 'o', c = 'r')
+plt.plot(Q_original, intensity_original, 'b')
+plt.plot(Q, intensity, 'o', c = 'g', markersize = 2)
+plt.plot(Q, bckgrd_sparse, 'o', c = 'r', markersize = 2)
 plt.xlim(0.8, 5.8)
 plt.subplot(424)
-plt.plot(Q_original, intensity_original-bckgrd)
+plt.plot(Q_original, intensity_original-bckgrd, 'm')
 plt.plot(Q, [0] * len(Q), 'r--')
 plt.xlim(0.8, 5.8)
 
@@ -138,12 +138,12 @@ bckgrd = f(Q_original)
 
 # save the plot
 plt.subplot(425)
-plt.plot(Q_original, intensity_original)
-plt.plot(Q, intensity, 'o')
-plt.plot(Q, bckgrd_sparse, 'o', c = 'r')
+plt.plot(Q_original, intensity_original, 'b')
+plt.plot(Q, intensity, 'o', c='g', markersize = 2)
+plt.plot(Q, bckgrd_sparse, 'o', c = 'r', markersize = 2)
 plt.xlim(0.8, 5.8)
 plt.subplot(427)
-plt.plot(Q_original, intensity_original-bckgrd)
+plt.plot(Q_original, intensity_original-bckgrd, 'm')
 plt.plot(Q, [0] * len(Q), 'r--')
 plt.xlim(0.8, 5.8)
 
@@ -165,12 +165,12 @@ bckgrd = f(Q_original)
 
 # save the plot
 plt.subplot(426)
-plt.plot(Q_original, intensity_original)
-plt.plot(Q, intensity, 'o')
-plt.plot(Q, bckgrd_sparse, 'o', c = 'r')
+plt.plot(Q_original, intensity_original, 'b')
+plt.plot(Q, intensity, 'o', c='g', markersize = 2)
+plt.plot(Q, bckgrd_sparse, 'o', c = 'r', markersize = 2)
 plt.xlim(0.8, 5.8)
 plt.subplot(428)
-plt.plot(Q_original, intensity_original-bckgrd)
+plt.plot(Q_original, intensity_original-bckgrd, 'm')
 plt.plot(Q, [0] * len(Q), 'r--')
 plt.xlim(0.8, 5.8)
 

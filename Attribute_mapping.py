@@ -51,68 +51,78 @@ crystallinity = data[:, 51]
 peak_position = data[:,64]
 peak_width = data[:,65]
 peak_intensity = data[:,66]
+nearest_neighbor_2d = data[:, 67]
 
 
 
-
-ternary_data = np.concatenate(([Co],[Fe],[Zr],[np.log(crystallinity)]), axis = 0)
-ternary_data = np.transpose(ternary_data)
-
-plotTernary.plt_ternary_save(ternary_data, tertitle='',  labelNames=('Co','Fe','Zr'), scale=100,
-                       sv=True, svpth=save_path, svflnm='crystallinity',
-                       cbl='Scale', vmin = 0.2, vmax = 1.4, cmap='viridis', cb=True, style='h')
-
-ternary_data = np.concatenate(([Co],[Fe],[Zr],[np.log(texture_sum)]), axis = 0)
-ternary_data = np.transpose(ternary_data)
-
-plotTernary.plt_ternary_save(ternary_data, tertitle='',  labelNames=('Co','Fe','Zr'), scale=100,
-                       sv=True, svpth=save_path, svflnm='texture_sum',
-                       cbl='Scale', vmin = -11.1, vmax = -10.3, cmap='viridis', cb=True, style='h')
-
-
-ternary_data = np.concatenate(([Co],[Fe],[Zr],[np.log(nearest_neighbor)]), axis = 0)
-ternary_data = np.transpose(ternary_data)
-
-plotTernary.plt_ternary_save(ternary_data, tertitle='',  labelNames=('Co','Fe','Zr'), scale=100,
-                       sv=True, svpth=save_path, svflnm='nearest_neighbor',
-                       cbl='Scale', vmin =-10.4, vmax = -2.55, cmap='viridis', cb=True, style='h')
-
-
-ternary_data = np.concatenate(([Co],[Fe],[Zr],[peak_number]), axis = 0)
-ternary_data = np.transpose(ternary_data)
-
-plotTernary.plt_ternary_save(ternary_data, tertitle='',  labelNames=('Co','Fe','Zr'), scale=100,
-                       sv=True, svpth=save_path, svflnm='peak_number',
-                       cbl='Scale', vmin = 1, vmax = 11, cmap='viridis', cb=True, style='h')
-
-
-
-ternary_data = np.concatenate(([Co],[Fe],[Zr],[peak_width]), axis = 0)
-ternary_data = np.transpose(ternary_data)
-
-plotTernary.plt_ternary_save(ternary_data, tertitle='',  labelNames=('Co','Fe','Zr'), scale=100,
-                       sv=True, svpth=save_path, svflnm='peak_width',
-                       cbl='Scale', vmin = 0.341, vmax = 0.964, cmap='viridis_r', cb=True, style='h')
-
-
-
-ternary_data = np.concatenate(([Co],[Fe],[Zr],[peak_intensity]), axis = 0)
-ternary_data = np.transpose(ternary_data)
-
-plotTernary.plt_ternary_save(ternary_data, tertitle='',  labelNames=('Co','Fe','Zr'), scale=100,
-                       sv=True, svpth=save_path, svflnm='peak_intensity',
-                       cbl='Scale', cmap='viridis', cb=True, style='h')
-
-ternary_data = np.concatenate(([Co],[Fe],[Zr],[peak_position]), axis = 0)
-ternary_data = np.transpose(ternary_data)
-
-plotTernary.plt_ternary_save(ternary_data, tertitle='',  labelNames=('Co','Fe','Zr'), scale=100,
-                       sv=True, svpth=save_path, svflnm='peak_position',
-                       cbl='Scale', vmin = 2.51, vmax = 3.14, cmap='viridis', cb=True, style='h')
-
+#
+# ternary_data = np.concatenate(([Co],[Fe],[Zr],[np.log(crystallinity)]), axis = 0)
+# ternary_data = np.transpose(ternary_data)
+#
+# plotTernary.plt_ternary_save(ternary_data, tertitle='',  labelNames=('Co','Fe','Zr'), scale=100,
+#                        sv=True, svpth=save_path, svflnm='crystallinity',
+#                        cbl='Scale', vmin = 0.2, vmax = 1.4, cmap='viridis', cb=True, style='h')
+#
+# ternary_data = np.concatenate(([Co],[Fe],[Zr],[np.log(texture_sum)]), axis = 0)
+# ternary_data = np.transpose(ternary_data)
+#
+# plotTernary.plt_ternary_save(ternary_data, tertitle='',  labelNames=('Co','Fe','Zr'), scale=100,
+#                        sv=True, svpth=save_path, svflnm='texture_sum',
+#                        cbl='Scale', vmin = -11.1, vmax = -10.3, cmap='viridis', cb=True, style='h')
+#
+#
+# ternary_data = np.concatenate(([Co],[Fe],[Zr],[np.log(nearest_neighbor)]), axis = 0)
+# ternary_data = np.transpose(ternary_data)
+#
+# plotTernary.plt_ternary_save(ternary_data, tertitle='',  labelNames=('Co','Fe','Zr'), scale=100,
+#                        sv=True, svpth=save_path, svflnm='nearest_neighbor',
+#                        cbl='Scale', vmin =-10.4, vmax = -4.8, cmap='viridis', cb=True, style='h')
+#
+#
+# ternary_data = np.concatenate(([Co],[Fe],[Zr],[peak_number]), axis = 0)
+# ternary_data = np.transpose(ternary_data)
+#
+# plotTernary.plt_ternary_save(ternary_data, tertitle='',  labelNames=('Co','Fe','Zr'), scale=100,
+#                        sv=True, svpth=save_path, svflnm='peak_number',
+#                        cbl='Scale', vmin = 1, vmax = 9, cmap='viridis', cb=True, style='h')
+#
+#
+#
+# ternary_data = np.concatenate(([Co],[Fe],[Zr],[peak_width]), axis = 0)
+# ternary_data = np.transpose(ternary_data)
+#
+# plotTernary.plt_ternary_save(ternary_data, tertitle='',  labelNames=('Co','Fe','Zr'), scale=100,
+#                        sv=True, svpth=save_path, svflnm='peak_width',
+#                        cbl='Scale', vmin = 0.1, vmax = 0.829, cmap='viridis_r', cb=True, style='h')
+#
+#
+#
+# ternary_data = np.concatenate(([Co],[Fe],[Zr],[peak_intensity]), axis = 0)
+# ternary_data = np.transpose(ternary_data)
+#
+# plotTernary.plt_ternary_save(ternary_data, tertitle='',  labelNames=('Co','Fe','Zr'), scale=100,
+#                        sv=True, svpth=save_path, svflnm='peak_intensity',
+#                        cbl='Scale', cmap='viridis', cb=True, style='h')
+#
+# ternary_data = np.concatenate(([Co],[Fe],[Zr],[peak_position]), axis = 0)
+# ternary_data = np.transpose(ternary_data)
+#
+# plotTernary.plt_ternary_save(ternary_data, tertitle='',  labelNames=('Co','Fe','Zr'), scale=100,
+#                        sv=True, svpth=save_path, svflnm='peak_position',
+#                        cbl='Scale', vmin = 2.51, vmax = 3.14, cmap='viridis', cb=True, style='h')
+#
 # ternary_data = np.concatenate(([Co],[Fe],[Zr],[[1]*len(Co)]), axis = 0)
 # ternary_data = np.transpose(ternary_data)
 #
 # plotTernary.plt_ternary_save(ternary_data, tertitle='',  labelNames=('Co','V','Zr'), scale=100,
 #                        sv=True, svpth=save_path, svflnm='empty_high',
 #                        cbl='Scale', cmap='gray', cb=True, style='h')
+
+
+
+ternary_data = np.concatenate(([Co],[Fe],[Zr],[np.log(nearest_neighbor_2d)]), axis = 0)
+ternary_data = np.transpose(ternary_data)
+
+plotTernary.plt_ternary_save(ternary_data, tertitle='',  labelNames=('Co','Fe','Zr'), scale=100,
+                       sv=True, svpth=save_path, svflnm='nearest_neighbor_2d',
+                       cbl='Scale', vmin =-8, vmax = -4.8, cmap='viridis', cb=True, style='h')

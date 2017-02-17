@@ -15,7 +15,7 @@ import imp
 
 plotTernary = imp.load_source("plt_ternary_save", "plotTernary.py")
 
-path = ''
+path = 'C:\\Research_FangRen\\Data\\Metallic_glasses_data\\CoZrFe_ternary\\Masterfiles\\high\\plots\\'
 
 metal1 = [np.nan]
 metal2 = [np.nan]
@@ -26,6 +26,6 @@ ternary_data = np.concatenate(([metal1],[metal2],[metal3],[peak_width]), axis = 
 ternary_data = np.transpose(ternary_data)
 
 plotTernary.plt_ternary_save(ternary_data, tertitle='',  labelNames=('Co','V','Zr'), scale=100,
-                       sv=False, svpth=path, svflnm='peak_width_ternary',
+                       sv=True, svpth=path, svflnm='peak_width_ternary',
                        cbl='Scale', vmin = 0.13, vmax = 0.406, cmap='jet_r', cb=False, style='h')
 

@@ -18,7 +18,7 @@ def file_index(index):
     elif len(str(index)) == 4:
         return str(index)
 
-plt.figure(1, figsize = (4, 6))
+plt.figure(1, figsize = (4, 4))
 def read_data(indices, basefile_path):
     data = []
     for index in indices:
@@ -33,14 +33,13 @@ def read_data(indices, basefile_path):
 #indices = range(96, 117)
 indices1 = [208,232,231,255,254,277,276,299,298,321,320,342,341,362,361,381,380,397,412,425,435]
 indices2 = [82,103,102,124,146,147,169,168,191,214,238,237,260,259,282,304,326]
-indices1 = []
-indices2 = np.arange(1, 442)
-# indices1.reverse()
-# indices2.reverse()
+indices1.reverse()
+indices2.reverse()
 
 
 
 folder_path = 'C:\\Research_FangRen\\Data\\Metallic_glasses_data\\CoZrFe_ternary\\1D\\bckgrd_subtracted_1D\\'
+save_path = 'C:\\Research_FangRen\\Data\\Metallic_glasses_data\\CoZrFe_ternary\\Masterfiles\\high\\plots\\'
 base_filename1 = 'Sample1_24x24_t30_'
 base_filename2 = 'Sample3_24x24_t30_'
 
@@ -61,8 +60,9 @@ data = read_data(indices2, basefile_path2) + read_data(indices1, basefile_path1)
 #
 # plt.pcolormesh(Qlist, num_of_scan, data)
 
-# plt.xlabel('Q')
-# plt.ylabel('intensity')
-# plt.xlim((1.5, 4))
-# plt.ylim((-50, 2000))
-# #plt.colorbar()
+plt.xlabel('Q')
+plt.ylabel('intensity')
+plt.xlim((1.5, 4))
+plt.ylim((-50, 2000))
+plt.savefig(save_path + 'XRD_spectra.png', bbox_inches='tight', dpi = 600)
+# plt.close('all')
