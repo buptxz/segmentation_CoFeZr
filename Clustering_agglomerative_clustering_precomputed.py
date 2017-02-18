@@ -7,12 +7,10 @@ Created on Tue Aug 02 14:20:44 2016
 
 import numpy as np
 import os
-from sklearn.cluster import SpectralClustering
+from sklearn.cluster import AgglomerativeClustering
 import imp
 from scipy.spatial.distance import cdist
 from os.path import join
-import scipy.io
-from PIL import Image
 
 plotTernary = imp.load_source("plt_ternary_save", "plotTernary.py")
 
@@ -32,45 +30,29 @@ def read_data(total_num_scan, index, basefile_paths):
     data = []
     for basefile_path in basefile_paths:
         # print basefile_path
-        silicon_file = basefile_path + '0233_Qchi.mat'
-        silicon_Qchi = scipy.io.loadmat(silicon_file)
-        silicon = silicon_Qchi['cake']
         while (index <= total_num_scan):
-            file_name = basefile_path + file_index(index) + '_Qchi.mat'
+            file_name = basefile_path + file_index(index) + '_bckgrd_subtracted.csv'
             # file_name = basefile_path + file_index(index) + '_1D.csv'
             if os.path.exists(file_name):
-                print 'importing', basefile_path + file_index(index) + '_Qchi.mat'
+                print 'importing', basefile_path + file_index(index) + '_bckgrd_subtracted.csv'
                 # print 'importing', basefile_path + file_index(index) + '_1D.csv'
-                Qchi = scipy.io.loadmat(file_name)
-                cake = Qchi['cake']
-                # plt.imshow(cake)
-                # plt.figure(2)
-                # plt.imshow(silicon)
-                cake = cake - silicon
-                # plt.figure(3)
-                # plt.imshow(cake)
-                im = Image.fromarray(cake)
-                im_compressed = im.resize((100, 100), Image.ANTIALIAS)
-                cake_compressed = np.array(im_compressed)
-                cake = cake_compressed.reshape(cake_compressed.shape[0] * cake_compressed.shape[1])
-                data.append(cake)
+                spectrum = np.genfromtxt(file_name, delimiter=',', skip_header=0)
+                data.append(spectrum[:, 1][:-19])
                 index += 1
             else:
                 index += 1
                 continue
-        #     break
-        # break
         index = 1
     return np.array(data)
 
 
-def spectra(similarity, clusters):
-    cl = SpectralClustering(n_clusters=clusters, affinity = 'precomputed', eigen_solver='arpack')
+def agglomerative(similarity, clusters):
+    cl = AgglomerativeClustering(n_clusters=clusters, affinity = 'cosine', linkage= 'average')
     labels = cl.fit_predict(similarity)
     return labels
 
 ## user input
-folder_path = 'C:\\Research_FangRen\\Data\\Metallic_glasses_data\\CoZrFe_ternary\\Qchi\\'
+folder_path = 'C:\\Research_FangRen\\Data\\Metallic_glasses_data\\CoZrFe_ternary\\1D\\bckgrd_subtracted_1D\\'
 base_filename1 = 'Sample1_24x24_t30_'
 base_filename2 = 'Sample3_24x24_t30_'
 base_filename3 = 'Sample16_2thin_24x24_t30_'
@@ -114,12 +96,10 @@ data = data[ROI > 20000]
 distance = cdist(data, data, 'cosine')
 similarity = 1 - distance
 
-
-
-labels = spectra(similarity, 7)
+labels = agglomerative(similarity, 6)
 
 # save result
-np.savetxt(join(save_path, 'Spectra_2d_precomputed.csv'), labels, delimiter=',')
+np.savetxt(join(save_path, 'Spectra_1d_precomputed.csv'), labels, delimiter=',')
 
 # plotting
 Co = masterdata[:, 58] * 100
@@ -130,5 +110,5 @@ ternary_data = np.concatenate(([Co], [Fe], [Zr], [labels]), axis=0)
 ternary_data = np.transpose(ternary_data)
 
 plotTernary.plt_ternary_save(ternary_data, tertitle='', labelNames=('Co', 'Fe', 'Zr'), scale=100,
-                             sv=True, svpth=save_path, svflnm='Spectra_2d_precomputed',
+                             sv=True, svpth=save_path, svflnm='agglomerative_1d_precomputed',
                              cbl='Scale', cmap='viridis', cb=True, style='h')

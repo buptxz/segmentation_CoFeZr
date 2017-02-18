@@ -7,7 +7,7 @@ Created on Tue Aug 02 14:20:44 2016
 
 import numpy as np
 import os
-from sklearn.cluster import SpectralClustering
+from sklearn.cluster import AgglomerativeClustering
 import imp
 from scipy.spatial.distance import cdist
 from os.path import join
@@ -46,7 +46,7 @@ def read_data(total_num_scan, index, basefile_paths):
                 # plt.imshow(cake)
                 # plt.figure(2)
                 # plt.imshow(silicon)
-                cake = cake - silicon
+                cake = cake - silicon*0.95
                 # plt.figure(3)
                 # plt.imshow(cake)
                 im = Image.fromarray(cake)
@@ -63,11 +63,11 @@ def read_data(total_num_scan, index, basefile_paths):
         index = 1
     return np.array(data)
 
-
-def spectra(similarity, clusters):
-    cl = SpectralClustering(n_clusters=clusters, affinity = 'precomputed', eigen_solver='arpack')
+def agglomerative(similarity, clusters):
+    cl = AgglomerativeClustering(n_clusters=clusters, affinity = 'cosine', linkage= 'average')
     labels = cl.fit_predict(similarity)
     return labels
+
 
 ## user input
 folder_path = 'C:\\Research_FangRen\\Data\\Metallic_glasses_data\\CoZrFe_ternary\\Qchi\\'
@@ -116,7 +116,7 @@ similarity = 1 - distance
 
 
 
-labels = spectra(similarity, 7)
+labels = agglomerative(similarity, 7)
 
 # save result
 np.savetxt(join(save_path, 'Spectra_2d_precomputed.csv'), labels, delimiter=',')
@@ -130,5 +130,5 @@ ternary_data = np.concatenate(([Co], [Fe], [Zr], [labels]), axis=0)
 ternary_data = np.transpose(ternary_data)
 
 plotTernary.plt_ternary_save(ternary_data, tertitle='', labelNames=('Co', 'Fe', 'Zr'), scale=100,
-                             sv=True, svpth=save_path, svflnm='Spectra_2d_precomputed',
+                             sv=True, svpth=save_path, svflnm='agglomerative_2d_precomputed',
                              cbl='Scale', cmap='viridis', cb=True, style='h')
