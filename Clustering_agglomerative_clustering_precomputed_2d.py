@@ -46,7 +46,7 @@ def read_data(total_num_scan, index, basefile_paths):
                 # plt.imshow(cake)
                 # plt.figure(2)
                 # plt.imshow(silicon)
-                cake = cake - silicon*0.95
+                cake = cake - silicon
                 # plt.figure(3)
                 # plt.imshow(cake)
                 im = Image.fromarray(cake)
@@ -116,7 +116,7 @@ similarity = 1 - distance
 
 
 
-labels = agglomerative(similarity, 7)
+labels = agglomerative(similarity, 5)
 
 # save result
 np.savetxt(join(save_path, 'Spectra_2d_precomputed.csv'), labels, delimiter=',')

@@ -96,7 +96,7 @@ data = data[ROI > 20000]
 distance = cdist(data, data, 'cosine')
 similarity = 1 - distance
 
-labels = spectra(similarity, 7)
+labels = spectra(similarity, 6)
 
 # save result
 np.savetxt(join(save_path, 'Spectra_1d_precomputed.csv'), labels, delimiter=',')
