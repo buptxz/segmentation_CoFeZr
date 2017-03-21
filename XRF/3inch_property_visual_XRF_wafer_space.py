@@ -13,36 +13,27 @@ import os
 from os.path import basename
 import imp
 
+path = 'C:\\Research_FangRen\\Data\\Metallic_glasses_data\\CoZrFe_ternary\\Masterfiles\\high\\'
 
-plotTernary = imp.load_source("plt_ternary_save", "plotTernary.py")
+filename = path + 'Sample16_master_metadata.csv'
+
+data = np.genfromtxt(filename, delimiter=',', skip_header = 1)
+plate_x = data[:,1]
+plate_y = data[:,2]
+ROI1 = data[:,15]
+ROI2 = data[:,16]
+ROI3 = data[:,17]
+ROI4 = data[:,18]
+ROI5 = data[:,19]
+ROI6 = data[:,20]
+Co_alpha = data[:,70]
+Co_beta = data[:, 71]
+Fe_alpha = data[:, 68]
+Fe_beta = data[:, 69]
 
 
-# path = 'C:\\Research_FangRen\\Data\\July2016\\CoZrFe_ternary\\Masterfiles\\high\\ploting\\'
-path = 'C:\\Research_FangRen\\Publications\\on_the_fly_paper\\Sample_data\\'
-
-def twoD_visualize(path):
-    """
-    create three lists for plotting: plate_x, plate_y, ROI1, ROI2, ROI3...
-    """
-    for filename in glob.glob(os.path.join(path, '*.csv')):
-        if basename(filename)[0] == '2':
-            print basename(filename)
-            data = np.genfromtxt(filename, delimiter=',', skip_header = 1)
-            plate_x = data[:,1]
-            plate_y = data[:,2]
-            ROI1 = data[:,15]
-            ROI2 = data[:,16]
-            ROI3 = data[:,17]
-            ROI4 = data[:,18]
-            ROI5 = data[:,19]
-            ROI6 = data[:,20]
-    return plate_x, plate_y, ROI1, ROI2, ROI3, ROI4, ROI5, ROI6
-
-                 
-plate_x, plate_y, ROI1, ROI2, ROI3, ROI4, ROI5, ROI6 = twoD_visualize(path)
-
-# area = 460
-area = 300
+area = 460
+# area = 300
 
 
 # plt.figure(1, figsize = (12, 9))
@@ -84,16 +75,16 @@ area = 300
 # plt.xlabel('plate_y')
 # plt.ylabel('plate_x(flat)')
 # plt.savefig(path+'ROI4.png')
-
-plt.figure(5, figsize = (12, 9))
-plt.title('XRF')
-plt.scatter(plate_y, plate_x, c = ROI5, s = area, marker = 's')
-plt.colorbar()
-plt.xlim((-44, 44))
-plt.ylim((-44, 44))
-plt.xlabel('x')
-plt.ylabel('y')
-plt.savefig(path+'ROI5.png', dpi = 600)
+#
+# plt.figure(5, figsize = (12, 9))
+# plt.title('ROI5')
+# plt.scatter(plate_y, plate_x, c = ROI5, s = area, marker = 's')
+# plt.colorbar()
+# plt.xlim((-44, 44))
+# plt.ylim((-44, 44))
+# plt.xlabel('x')
+# plt.ylabel('y')
+# plt.savefig(path+'ROI5.png', dpi = 600)
 
 # plt.figure(6, figsize = (12, 9))
 # plt.title('ROI6')
@@ -105,5 +96,49 @@ plt.savefig(path+'ROI5.png', dpi = 600)
 # plt.ylabel('plate_x(flat)')
 # plt.savefig(path+'ROI6.png')
 
-plt.close("all")
+
+plt.figure(7, figsize = (12, 9))
+plt.title('Co_alpha')
+plt.scatter(plate_y, plate_x, c = Co_alpha, s = area, marker = 's')
+plt.colorbar()
+plt.xlim((-36, 36))
+plt.ylim((-36, 36))
+plt.xlabel('plate_y')
+plt.ylabel('plate_x(flat)')
+# plt.savefig(path+'Co_alpha.png')
+
+plt.figure(8, figsize = (12, 9))
+plt.title('Co_beta')
+plt.scatter(plate_y, plate_x, c = Co_beta, s = area, marker = 's')
+plt.colorbar()
+plt.xlim((-36, 36))
+plt.ylim((-36, 36))
+plt.xlabel('plate_y')
+plt.ylabel('plate_x(flat)')
+# plt.savefig(path+'Co_alpha.png')
+
+
+plt.figure(9, figsize = (12, 9))
+plt.title('Fe_alpha')
+plt.scatter(plate_y, plate_x, c = Fe_alpha, s = area, marker = 's')
+plt.colorbar()
+plt.xlim((-36, 36))
+plt.ylim((-36, 36))
+plt.xlabel('plate_y')
+plt.ylabel('plate_x(flat)')
+# plt.savefig(path+'Co_alpha.png')
+
+
+plt.figure(10, figsize = (12, 9))
+plt.title('Fe_beta')
+plt.scatter(plate_y, plate_x, c = Fe_beta, s = area, marker = 's')
+plt.colorbar()
+plt.xlim((-36, 36))
+plt.ylim((-36, 36))
+plt.xlabel('plate_y')
+plt.ylabel('plate_x(flat)')
+# plt.savefig(path+'Co_alpha.png')
+
+
+# plt.close("all")
 
