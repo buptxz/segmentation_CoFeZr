@@ -5,12 +5,16 @@ Created on Wed Aug 03 14:03:38 2016
 @author: Tri Duong, Fang Ren
 """
 
+
 import numpy as np
 from scipy.spatial import distance
 import matplotlib.pyplot as plt
 import os.path
 import scipy.io
-from PIL import Image
+import time
+
+time1 = time.time()
+
 
 def find_neighbour(index, scan_register, length_of_row):
     """
@@ -43,7 +47,7 @@ def file_index(index):
 def import_data(index, path, base_filename):
     # print basefile_path
     file_name = path + base_filename + file_index(index) + '_Qchi.mat'
-    print 'importing', path + base_filename + file_index(index) + '_Qchi.mat'
+    #print 'importing', path + base_filename + file_index(index) + '_Qchi.mat'
     Qchi = scipy.io.loadmat(file_name)
     cake = Qchi['cake']
     # im = Image.fromarray(cake)
@@ -71,4 +75,8 @@ for i in range(441):
     distance_sum = distance.cosine(point_of_interest, neighbor1) + distance.cosine(point_of_interest, neighbor2)
     distances.append(distance_sum)
 
-np.savetxt(path + 'nearest_neighbor_distances_2d.csv', distances, delimiter=',')
+# np.savetxt(path + 'nearest_neighbor_distances_2d.csv', distances, delimiter=',')
+
+runtime = time.time()-time1
+
+print runtime

@@ -37,6 +37,7 @@ data2 = np.genfromtxt(filename2, delimiter=',', skip_header = 1)
 data3 = np.genfromtxt(filename3, delimiter=',', skip_header = 1)
 
 data = np.concatenate((data1[:, :69], data2[:, :69], data3[:, :69]))
+# data = data1[:50, :69]
 ROI = data[:, 15]
 data = data[ROI > 20000]
 
@@ -54,29 +55,31 @@ peak_intensity = data[:,66]
 nearest_neighbor_2d = data[:, 67]
 
 
+#
+# #
+# # ternary_data = np.concatenate(([Co],[Fe],[Zr],[np.log(crystallinity)]), axis = 0)
+# # ternary_data = np.transpose(ternary_data)
+# #
+# # plotTernary.plt_ternary_save(ternary_data, tertitle='',  labelNames=('Co','Fe','Zr'), scale=100,
+# #                        sv=True, svpth=save_path, svflnm='crystallinity',
+# #                        cbl='Scale', vmin = 0.2, vmax = 1.4, cmap='viridis', cb=True, style='h')
+# #
+# # ternary_data = np.concatenate(([Co],[Fe],[Zr],[np.log(texture_sum)]), axis = 0)
+# # ternary_data = np.transpose(ternary_data)
+# #
+# # plotTernary.plt_ternary_save(ternary_data, tertitle='',  labelNames=('Co','Fe','Zr'), scale=100,
+# #                        sv=True, svpth=save_path, svflnm='texture_sum',
+# #                        cbl='Scale', vmin = -11.1, vmax = -10.3, cmap='viridis', cb=True, style='h')
+# #
 
-#
-# ternary_data = np.concatenate(([Co],[Fe],[Zr],[np.log(crystallinity)]), axis = 0)
-# ternary_data = np.transpose(ternary_data)
-#
-# plotTernary.plt_ternary_save(ternary_data, tertitle='',  labelNames=('Co','Fe','Zr'), scale=100,
-#                        sv=True, svpth=save_path, svflnm='crystallinity',
-#                        cbl='Scale', vmin = 0.2, vmax = 1.4, cmap='viridis', cb=True, style='h')
-#
-# ternary_data = np.concatenate(([Co],[Fe],[Zr],[np.log(texture_sum)]), axis = 0)
-# ternary_data = np.transpose(ternary_data)
-#
-# plotTernary.plt_ternary_save(ternary_data, tertitle='',  labelNames=('Co','Fe','Zr'), scale=100,
-#                        sv=True, svpth=save_path, svflnm='texture_sum',
-#                        cbl='Scale', vmin = -11.1, vmax = -10.3, cmap='viridis', cb=True, style='h')
-#
-#
-# ternary_data = np.concatenate(([Co],[Fe],[Zr],[np.log(nearest_neighbor)]), axis = 0)
-# ternary_data = np.transpose(ternary_data)
-#
-# plotTernary.plt_ternary_save(ternary_data, tertitle='',  labelNames=('Co','Fe','Zr'), scale=100,
-#                        sv=True, svpth=save_path, svflnm='nearest_neighbor',
-#                        cbl='Scale', vmin =-10.4, vmax = -4.8, cmap='viridis', cb=True, style='h')
+
+
+ternary_data = np.concatenate(([Co],[Fe],[Zr],[np.log(nearest_neighbor)]), axis = 0)
+ternary_data = np.transpose(ternary_data)
+
+plotTernary.plt_ternary_save(ternary_data, tertitle='',  labelNames=('Co','Fe','Zr'), scale=100,
+                       sv=True, svpth=save_path, svflnm='nearest_neighbor',
+                       cbl='Scale', vmin = -10.8, vmax = -4.7, cmap='viridis', cb=True, style='h')
 #
 #
 # ternary_data = np.concatenate(([Co],[Fe],[Zr],[peak_number]), axis = 0)
@@ -120,9 +123,22 @@ nearest_neighbor_2d = data[:, 67]
 
 
 
+
 ternary_data = np.concatenate(([Co],[Fe],[Zr],[np.log(nearest_neighbor_2d)]), axis = 0)
 ternary_data = np.transpose(ternary_data)
 
 plotTernary.plt_ternary_save(ternary_data, tertitle='',  labelNames=('Co','Fe','Zr'), scale=100,
                        sv=True, svpth=save_path, svflnm='nearest_neighbor_2d',
-                       cbl='Scale', vmin =-8, vmax = -4.8, cmap='viridis', cb=True, style='h')
+                       cbl='Scale', vmin = -8.7, vmax = -4.8, cmap='viridis', cb=True, style='h')
+
+
+plt.figure(3, figsize = (10,8))
+plt.subplot(211)
+#plt.hist(np.log(nearest_neighbor), bins = 100, range = (np.nanmin(np.log(nearest_neighbor)), np.nanmax(np.log(nearest_neighbor))), label = '1D spectra')
+plt.hist(np.log(nearest_neighbor), bins = 100, range = (-10.8, -4.7), label = '1D spectra')
+plt.legend()
+plt.subplot(212)
+#plt.hist(np.log(nearest_neighbor_2d), bins = 100, range = (np.nanmin(np.log(nearest_neighbor_2d)), np.nanmax(np.log(nearest_neighbor_2d))), label = '2D images', color = 'orange')
+plt.hist(np.log(nearest_neighbor_2d), bins = 100, range = (-8.7, -4.8), label = '2D images', color = 'orange')
+plt.legend()
+plt.savefig(save_path + 'nearest_neighbor_hist', dpi = 600)
