@@ -102,9 +102,9 @@ labels = agglomerative(similarity, 6)
 np.savetxt(join(save_path, 'Spectra_1d_precomputed.csv'), labels, delimiter=',')
 
 # plotting
-Co = masterdata[:, 58] * 100
-Fe = masterdata[:, 59] * 100
-Zr = masterdata[:, 60] * 100
+Co = masterdata[:, 61] * 100
+Fe = masterdata[:, 62] * 100
+Zr = masterdata[:, 63] * 100
 
 ternary_data = np.concatenate(([Co], [Fe], [Zr], [labels]), axis=0)
 ternary_data = np.transpose(ternary_data)

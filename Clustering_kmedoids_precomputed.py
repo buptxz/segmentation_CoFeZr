@@ -111,9 +111,9 @@ np.savetxt(join(save_path, 'Kmedoids_1d_precomputed.csv'), labels, delimiter=','
 
 
 # plotting
-Co = masterdata[:,58]*100
-Fe = masterdata[:,59]*100
-Zr = masterdata[:,60]*100
+Co = masterdata[:,61]*100
+Fe = masterdata[:,62]*100
+Zr = masterdata[:,63]*100
 
 
 
