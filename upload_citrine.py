@@ -24,11 +24,15 @@ def file_index(index):
         return str(index)
 
 
-master_file_path = 'C:\\Research_FangRen\\Data\\July2016\\CoZrFe_ternary\\Masterfiles\\high\\'
-master_file_name = 'CLEANED_Sample3_24x24_t30_master_metadata.csv'
+master_file_path = '..\\..\\data\\Masterfiles\\'
+master_file_name = 'Sample3_24x24_t30_master_metadata.csv'
 master_file = master_file_path + master_file_name
 
 data = np.genfromtxt(master_file, delimiter=',', skip_header = 1)
+
+# use ROI to filter bad data
+ROI = data[:, 15]
+data = data[ROI > 20000]
 
 Co = data[:,57]
 Fe = data[:,58]
@@ -37,17 +41,17 @@ peak_position = data[:,60]
 peak_width = data[:,61]
 scan_num = data[:,52].astype(int)
 
-spectra_file_path = 'C:\\Research_FangRen\\Data\\July2016\\CoZrFe_ternary\\1D\\Sample3\\'
+spectra_file_path = '..\\..\\data\\raw_1D\\'
 spectra_basename = 'Sample3_24x24_t30_'
+save_path = '..\\..\\data\\Json_files\\'
 
 # one dataset
-
 alloys = []
 for i in range(len(Co)):
 # for i in range(1):
     alloy = ChemicalSystem()
     spectrum_file = spectra_file_path + spectra_basename + file_index(scan_num[i]) + '_1D.csv'
-    # print scan_num[i]
+    print 'Importing', spectrum_file
     spectrum = np.genfromtxt(spectrum_file, delimiter=',')
     IntAve = spectrum[:950,1]
     Qlist = spectrum[:950,0]
@@ -66,7 +70,8 @@ for i in range(len(Co)):
 
     alloy.source = Source(producer='Hattrick-Simplers Group (The University of South Carolina)')
 
-    alloy.properties = [Property(name = 'XRD Intensity', scalars = IntAve,
+    alloy.properties = [Property(name = 'Qchi', files = FileReference(relative_path= '/' + spectra_basename + file_index(scan_num[i]) + '_Qchi.png')),
+                        Property(name = 'XRD Intensity', scalars = IntAve,
                                  conditions=[Value(name = 'Q, (Angstrom$^{-1}$)', scalars = Qlist),
                                              Value(name='Temperature', scalars='25', units='$^\\circ$C'),
                                              Value(name='Exposure time', scalars='30', units='seconds')],
@@ -81,7 +86,7 @@ for i in range(len(Co)):
 
     #print pif.dumps(alloy, indent=4)
     alloys += [alloy]
-pif.dump(alloys, open('HiTp.json','w'))
+pif.dump(alloys, open(save_path+'HiTp.json','w'))
 
 
     # # to let the system assign an ID automatically
