@@ -8,8 +8,8 @@ import numpy as np
 #from plotTernary import plt_ternary_save
 import matplotlib.pyplot as plt
 
-A = np.arange(0, 100, 4)
-B = np.arange(0, 100, 4)
+A = np.arange(0, 100, 2)
+B = np.arange(0, 100, 2)
 A, B = np.meshgrid(A, B)
 
 C = 100-A-B
@@ -22,20 +22,20 @@ C = C[keep]
 length = len(A)
 intensity = [0.5]*length
 peak_position = B*[0.02]+2
-print len(A)
+# print len(A)
 
 save_path = '..\\..\\data\\dummy_data\\1D\\'
 
 
 
 def isHighIntensity(a, b, c):
-    if b >66:
+    if b >40:
         return True
     else:
         return False
 
 def is3peaks(a, b, c):
-    if c > 66:
+    if c > 40:
         return True
     else:
         return False
@@ -101,13 +101,14 @@ for i in range(length):
 #                        sv=True, svpth=save_path, svflnm='peak_intensity_dummy',
 #                        cbl='', cmap='viridis', cb=True, style='h')
 
-print len(peak_positions)
-print peak_intensity
-print FWHM
+# print len(peak_positions)
+# print peak_intensity
+# print FWHM
 Q = np.arange(0.5, 6, 0.01)
 
 
 for i in range(length):
+    print 'generating', str(i)
     intensity = np.zeros_like(Q)
     for peak_position in peak_positions[i]:
         params = [peak_position, peak_intensity[i], FWHM[i]]
