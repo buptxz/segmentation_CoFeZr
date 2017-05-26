@@ -31,8 +31,8 @@ save_path = '..//..//data//dummy_data//2D//'
 
 
 
-A = np.arange(0, 100, 2)
-B = np.arange(0, 100, 2)
+A = np.arange(0, 100, 1.5)
+B = np.arange(0, 100, 1.5)
 A, B = np.meshgrid(A, B)
 
 C = 100-A-B
@@ -59,4 +59,4 @@ for i in range(len(A)):
     plt.ylabel('ch')
     plt.savefig(save_path + str(i) + '.png')
     plt.close('all')
-    savemat(save_path + str(i) + '.png', {'cake':cake})
+    savemat(save_path + str(i) + '.mat', {'cake':cake})

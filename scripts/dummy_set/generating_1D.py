@@ -8,8 +8,8 @@ import numpy as np
 #from plotTernary import plt_ternary_save
 import matplotlib.pyplot as plt
 
-A = np.arange(0, 100, 2)
-B = np.arange(0, 100, 2)
+A = np.arange(0, 100, 1.5)
+B = np.arange(0, 100, 1.5)
 A, B = np.meshgrid(A, B)
 
 C = 100-A-B
@@ -76,6 +76,7 @@ def func(x, *params):
 peak_positions = []
 peak_intensity = []
 FWHM = []
+peak_num = []
 
 for i in range(length):
     a = A[i]
@@ -91,8 +92,21 @@ for i in range(length):
         FWHM.append(0.1)
     if is3peaks(a,b,c):
         peak_positions.append([peak_position[i], peak_position[i]+0.4, peak_position[i]+0.8])
+        peak_num.append(3)
     else:
         peak_positions.append([peak_position[i]])
+        peak_num.append(1)
+
+# peak_position = np.array(peak_position)
+# peak_intensity = np.array(peak_intensity)
+# FWHM = np.array(FWHM)
+#
+#
+# print A.shape, B.shape, C.shape, peak_position.shape, peak_intensity.shape, FWHM.shape
+
+data = np.concatenate(([A], [B], [C], [peak_num], [peak_intensity], [FWHM])).T
+
+np.savetxt('..\\..\\data\\dummy_data\\masterdata.csv', data, delimiter=',', header='A, B, C, # of peaks, peak_intensity, FWHM')
 
 # ternary_data = np.concatenate(([A],[C],[B],[peak_intensity]), axis = 0)
 # ternary_data = np.transpose(ternary_data)
