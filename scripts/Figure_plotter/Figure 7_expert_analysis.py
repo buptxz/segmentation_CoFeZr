@@ -44,7 +44,11 @@ data = data[ROI > 20000]
 Co = data[:,61]*100
 Fe = data[:,62]*100
 Zr = data[:,63]*100
-intensity = [0.5]*len(Co)
+FWHM = data[:, 65]
+label = np.zeros((FWHM.shape[0]))
+label[FWHM > 0.35] = 0.5
+label[FWHM > 0.57] = 1
+intensity = [0]*len(Co)
 
 ternary_data = np.concatenate(([Co],[Fe],[Zr],[intensity]), axis = 0)
 ternary_data = np.transpose(ternary_data)
@@ -52,3 +56,19 @@ ternary_data = np.transpose(ternary_data)
 plotTernary.plt_ternary_save(ternary_data, tertitle='',  labelNames=('Co','Fe','Zr'), scale=100,
                        sv=True, svpth=save_path, svflnm='Figure7_gray_ternary',
                        cbl='', vmin = 0, vmax = 1, cmap='gray', cb=True, style='h')
+
+
+ternary_data = np.concatenate(([Co],[Fe],[Zr],[FWHM]), axis = 0)
+ternary_data = np.transpose(ternary_data)
+
+plotTernary.plt_ternary_save(ternary_data, tertitle='',  labelNames=('Co','Fe','Zr'), scale=100,
+                       sv=True, svpth=save_path, svflnm='Figure7_FWHM',
+                       cbl='FWHM', cmap='viridis', cb=True, style='h')
+
+
+ternary_data = np.concatenate(([Co],[Fe],[Zr],[label]), axis = 0)
+ternary_data = np.transpose(ternary_data)
+
+plotTernary.plt_ternary_save(ternary_data, tertitle='',  labelNames=('Co','Fe','Zr'), scale=100,
+                       sv=True, svpth=save_path, svflnm='Figure7_glass_formation',
+                       cbl='glass formation', vmax = 1, vmin = 0, cmap='viridis_r', cb=True, style='h')
