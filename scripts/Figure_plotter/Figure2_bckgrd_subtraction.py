@@ -64,36 +64,39 @@ path = '..\\..\\data\\raw_1D\\'
 save_path = '..\\..\\figures\\'
 basename = 'Sample3_24x24_t30_'
 
-# 1
-file_name = os.path.join(path, basename + file_index(1) + '_1D.csv')
-spectrum = np.genfromtxt(file_name, delimiter= ',')
-intensity_original = spectrum[:, 1][30:-70]
-Q_original =  spectrum[:, 0][30:-70]
 
-# create a sparse set of data for fitting, window size: 20
-Q, intensity = set_window(20, Q_original, intensity_original)
+plt.figure(1, figsize = (10, 8))
 
-# fit  the result according the the defined object_func with the initialized parameters and bounds
-x0 = [1, 1, 1, 1, 1]
-result = basinhopping(object_func, x0)
-bckgrd_sparse = func(Q, result.x)
-f = interp1d(Q, bckgrd_sparse, kind='cubic', bounds_error=False)
-bckgrd = f(Q_original)
-
-# save the plot
-plt.figure(1, figsize = (10, 11))
-plt.subplot(421)
-plt.plot(Q_original, intensity_original, 'b', label = 'spectrum')
-plt.plot(Q, intensity, 'o',  c = 'g', markersize = 2, label = 'selected points')
-plt.plot(Q, bckgrd_sparse, 'o', c = 'r', markersize = 2, label = 'background')
-plt.legend()
-plt.xlim(0.8, 5.8)
-plt.subplot(422)
-plt.plot(Q_original, intensity_original-bckgrd, 'm', label = 'background subtracted')
-plt.plot(Q, [0] * len(Q), 'r--')
-plt.legend(loc = 1)
-plt.xlim(0.8, 5.8)
-plt.ylim(-10, 200)
+# # 1
+# file_name = os.path.join(path, basename + file_index(1) + '_1D.csv')
+# spectrum = np.genfromtxt(file_name, delimiter= ',')
+# intensity_original = spectrum[:, 1][30:-70]
+# Q_original =  spectrum[:, 0][30:-70]
+#
+# # create a sparse set of data for fitting, window size: 20
+# Q, intensity = set_window(20, Q_original, intensity_original)
+#
+# # fit  the result according the the defined object_func with the initialized parameters and bounds
+# x0 = [1, 1, 1, 1, 1]
+# result = basinhopping(object_func, x0)
+# bckgrd_sparse = func(Q, result.x)
+# f = interp1d(Q, bckgrd_sparse, kind='cubic', bounds_error=False)
+# bckgrd = f(Q_original)
+#
+# # save the plot
+#
+# plt.subplot(421)
+# plt.plot(Q_original, intensity_original, 'b', label = 'spectrum')
+# plt.plot(Q, intensity, 'o',  c = 'g', markersize = 2, label = 'selected points')
+# plt.plot(Q, bckgrd_sparse, 'o', c = 'r', markersize = 2, label = 'background')
+# plt.legend()
+# plt.xlim(0.8, 5.8)
+# plt.subplot(422)
+# plt.plot(Q_original, intensity_original-bckgrd, 'm', label = 'background subtracted')
+# plt.plot(Q, [0] * len(Q), 'r--')
+# plt.legend(loc = 1)
+# plt.xlim(0.8, 5.8)
+# plt.ylim(-10, 200)
 
 
 # 2
@@ -113,13 +116,13 @@ f = interp1d(Q, bckgrd_sparse, kind='cubic', bounds_error=False)
 bckgrd = f(Q_original)
 
 # save the plot
-plt.subplot(423)
+plt.subplot(323)
 plt.plot(Q_original, intensity_original, 'b', label = 'spectrum')
 plt.plot(Q, intensity, 'o',  c = 'g', markersize = 2, label = 'selected points')
 plt.plot(Q, bckgrd_sparse, 'o', c = 'r', markersize = 2, label = 'background')
 plt.legend()
 plt.xlim(0.8, 5.8)
-plt.subplot(424)
+plt.subplot(324)
 plt.plot(Q_original, intensity_original-bckgrd, 'm', label = 'background subtracted')
 plt.plot(Q, [0] * len(Q), 'r--')
 plt.legend(loc = 1)
@@ -143,13 +146,13 @@ f = interp1d(Q, bckgrd_sparse, kind='cubic', bounds_error=False)
 bckgrd = f(Q_original)
 
 # save the plot
-plt.subplot(425)
+plt.subplot(325)
 plt.plot(Q_original, intensity_original, 'b', label = 'spectrum')
 plt.plot(Q, intensity, 'o',  c = 'g', markersize = 2, label = 'selected points')
 plt.plot(Q, bckgrd_sparse, 'o', c = 'r', markersize = 2, label = 'background')
 plt.legend()
 plt.xlim(0.8, 5.8)
-plt.subplot(426)
+plt.subplot(326)
 plt.plot(Q_original, intensity_original-bckgrd, 'm', label = 'background subtracted')
 plt.plot(Q, [0] * len(Q), 'r--')
 plt.legend(loc = 1)
@@ -173,13 +176,13 @@ f = interp1d(Q, bckgrd_sparse, kind='cubic', bounds_error=False)
 bckgrd = f(Q_original)
 
 # save the plot
-plt.subplot(427)
+plt.subplot(321)
 plt.plot(Q_original, intensity_original, 'b', label = 'spectrum')
 plt.plot(Q, intensity, 'o',  c = 'g', markersize = 2, label = 'selected points')
 plt.plot(Q, bckgrd_sparse, 'o', c = 'r', markersize = 2, label = 'background')
 plt.legend()
 plt.xlim(0.8, 5.8)
-plt.subplot(428)
+plt.subplot(322)
 plt.plot(Q_original, intensity_original-bckgrd, 'm', label = 'background subtracted')
 plt.plot(Q, [0] * len(Q), 'r--')
 plt.legend(loc = 1)
@@ -187,6 +190,6 @@ plt.xlim(0.8, 5.8)
 plt.ylim(-100, 2000)
 
 
-plt.savefig(os.path.join(save_path, 'Figure2_background_subtraction.png'), dpi = 600)
+plt.savefig(os.path.join(save_path, 'Figure2_background_subtraction.png'), dpi = 300)
 # plt.close('all')
 #
