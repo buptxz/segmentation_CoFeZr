@@ -49,6 +49,8 @@ print Fe[indices]
 print Zr[indices]
 
 path = '..\\..\\data\\Detailed_analysis\\'
+save_path = '..\\..\\figures\\'
+
 Zr_10_f = path + 'Zr = 10.csv'
 Zr_30_f = path + 'Zr = 30.csv'
 Zr_50_f = path + 'Zr = 50.csv'
@@ -68,4 +70,4 @@ plt.plot(Zr_10[:,0], Zr_50[:,1], label = 'Zr = 50%')
 plt.plot(Zr_10[:,0], Zr_70[:,1], label = 'Zr = 70%')
 plt.plot(Zr_10[:,0], Zr_85[:,1], label = 'Zr = 85%')
 plt.legend()
-plt.savefig(path + 'detailed_analysis')
+plt.savefig(save_path + 'detailed_analysis')
