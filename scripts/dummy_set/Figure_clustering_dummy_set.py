@@ -74,23 +74,23 @@ plotTernary.plt_ternary_save(ternary_data, tertitle='', labelNames=('A', 'C', 'B
                              cbl='peak intensity', cmap='viridis', cb=True, style='h')
 
 # clustering
-# cl = AgglomerativeClustering(n_clusters= 5, affinity = 'cosine', linkage= 'average')
-# labels_1D = cl.fit_predict(oneD_data)
+cl = AgglomerativeClustering(n_clusters= 5, affinity = 'cosine', linkage= 'average')
+labels_1D = cl.fit_predict(oneD_data)
+
+cl2 = AgglomerativeClustering(n_clusters= 7, affinity = 'cosine', linkage= 'average')
+labels_2D = cl2.fit_predict(twoD_data)
+
+# distance_1D = cdist(oneD_data, oneD_data, 'cosine')
+# similarity_1D = 1 - distance_1D
 #
-# cl2 = AgglomerativeClustering(n_clusters= 6, affinity = 'cosine', linkage= 'average')
-# labels_2D = cl2.fit_predict(twoD_data)
-
-distance_1D = cdist(oneD_data, oneD_data, 'cosine')
-similarity_1D = 1 - distance_1D
-
-cl3 = spectral_clustering(n_clusters= 4, affinity = 'precomputed', eigen_solver='arpack')
-labels_1D_sc = cl3.fit_predict(oneD_data)
-
-
-distance_2D = cdist(twoD_data, twoD_data, 'cosine')
-similarity_2D = 1 - distance_2D
-cl4 = spectral_clustering(n_clusters= 5, affinity = 'precomputed', eigen_solver='arpack')
-labels_2D_sc = cl4.fit_predict(similarity_2D)
+# cl3 = spectral_clustering(n_clusters= 4, affinity = 'precomputed', eigen_solver='arpack')
+# labels_1D_sc = cl3.fit_predict(oneD_data)
+#
+#
+# distance_2D = cdist(twoD_data, twoD_data, 'cosine')
+# similarity_2D = 1 - distance_2D
+# cl4 = spectral_clustering(n_clusters= 5, affinity = 'precomputed', eigen_solver='arpack')
+# labels_2D_sc = cl4.fit_predict(similarity_2D)
 
 # save result
 #np.savetxt(join(save_path, 'Spectra_2d_precomputed.csv'), labels, delimiter=',')
@@ -98,33 +98,33 @@ labels_2D_sc = cl4.fit_predict(similarity_2D)
 
 
 # plotting
-# ternary_data = np.concatenate(([A], [C], [B], [labels_1D]), axis=0)
-# ternary_data = np.transpose(ternary_data)
-#
-# plotTernary.plt_ternary_save(ternary_data, tertitle='', labelNames=('A', 'C', 'B'), scale=100,
-#                              sv=True, svpth=save_path, svflnm='Figure_agglomerative_1d',
-#                              cbl='Agglomerative clustering (1D)', cmap='viridis', cb=True, style='h')
-#
-#
-# ternary_data = np.concatenate(([A], [C], [B], [labels_2D]), axis=0)
-# ternary_data = np.transpose(ternary_data)
-#
-# plotTernary.plt_ternary_save(ternary_data, tertitle='', labelNames=('A', 'C', 'B'), scale=100,
-#                              sv=True, svpth=save_path, svflnm='Figure_agglomerative_2d',
-#                              cbl='Agglomerative clustering (2D)', cmap='viridis', cb=True, style='h')
-
-ternary_data = np.concatenate(([A], [C], [B], [labels_1D_sc]), axis=0)
+ternary_data = np.concatenate(([A], [C], [B], [labels_1D]), axis=0)
 ternary_data = np.transpose(ternary_data)
 
 plotTernary.plt_ternary_save(ternary_data, tertitle='', labelNames=('A', 'C', 'B'), scale=100,
-                             sv=True, svpth=save_path, svflnm='Figure_spectral_1d',
-                             cbl='spectral clustering (1D)', cmap='viridis', cb=True, style='h')
+                             sv=True, svpth=save_path, svflnm='Figure_agglomerative_1d',
+                             cbl='Agglomerative clustering (1D)', cmap='viridis', cb=True, style='h')
 
 
-ternary_data = np.concatenate(([A], [C], [B], [labels_2D_sc]), axis=0)
+ternary_data = np.concatenate(([A], [C], [B], [labels_2D]), axis=0)
 ternary_data = np.transpose(ternary_data)
 
 plotTernary.plt_ternary_save(ternary_data, tertitle='', labelNames=('A', 'C', 'B'), scale=100,
-                             sv=True, svpth=save_path, svflnm='Figure_spectra_2d',
-                             cbl='spectral clustering (2D)', cmap='viridis', cb=True, style='h')
+                             sv=True, svpth=save_path, svflnm='Figure_agglomerative_2d',
+                             cbl='Agglomerative clustering (2D)', cmap='viridis', cb=True, style='h')
+#
+# ternary_data = np.concatenate(([A], [C], [B], [labels_1D_sc]), axis=0)
+# ternary_data = np.transpose(ternary_data)
+#
+# plotTernary.plt_ternary_save(ternary_data, tertitle='', labelNames=('A', 'C', 'B'), scale=100,
+#                              sv=True, svpth=save_path, svflnm='Figure_spectral_1d',
+#                              cbl='spectral clustering (1D)', cmap='viridis', cb=True, style='h')
+#
+#
+# ternary_data = np.concatenate(([A], [C], [B], [labels_2D_sc]), axis=0)
+# ternary_data = np.transpose(ternary_data)
+#
+# plotTernary.plt_ternary_save(ternary_data, tertitle='', labelNames=('A', 'C', 'B'), scale=100,
+#                              sv=True, svpth=save_path, svflnm='Figure_spectra_2d',
+#                              cbl='spectral clustering (2D)', cmap='viridis', cb=True, style='h')
 
