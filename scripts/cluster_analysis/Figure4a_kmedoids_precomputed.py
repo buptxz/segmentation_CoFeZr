@@ -121,5 +121,5 @@ ternary_data = np.concatenate(([Co],[Fe],[Zr],[labels]), axis = 0)
 ternary_data = np.transpose(ternary_data)
 
 plotTernary.plt_ternary_save(ternary_data, tertitle='',  labelNames=('Co','Fe','Zr'), scale=100,
-                       sv=True, svpth=save_path, svflnm='Figure6a_Kmedoids_1d_precomputed',
+                       sv=True, svpth=save_path, svflnm='Figure4a_Kmedoids_1d_precomputed',
                        cbl='Kmedoids (1D)', cmap='viridis', cb=True, style='h')

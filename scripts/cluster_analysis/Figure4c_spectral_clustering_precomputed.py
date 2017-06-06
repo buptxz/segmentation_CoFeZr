@@ -7,7 +7,7 @@ Created on Tue Aug 02 14:20:44 2016
 
 import numpy as np
 import os
-from sklearn.cluster import AgglomerativeClustering
+from sklearn.cluster import SpectralClustering
 import imp
 from scipy.spatial.distance import cdist
 from os.path import join
@@ -46,8 +46,8 @@ def read_data(total_num_scan, index, basefile_paths):
     return np.array(data)
 
 
-def agglomerative(similarity, clusters):
-    cl = AgglomerativeClustering(n_clusters=clusters, affinity = 'cosine', linkage= 'average')
+def spectra(similarity, clusters):
+    cl = SpectralClustering(n_clusters=clusters, affinity = 'precomputed', eigen_solver='arpack')
     labels = cl.fit_predict(similarity)
     return labels
 
@@ -97,19 +97,19 @@ data = data[ROI > 20000]
 distance = cdist(data, data, 'cosine')
 similarity = 1 - distance
 
-labels = agglomerative(similarity, 6)
+labels = spectra(similarity, 6)
 
 # save result
 #np.savetxt(join(save_path, 'Spectra_1d_precomputed.csv'), labels, delimiter=',')
 
 # plotting
-Co = masterdata[:, 61] * 100
-Fe = masterdata[:, 62] * 100
-Zr = masterdata[:, 63] * 100
+Co = masterdata[:,61]*100
+Fe = masterdata[:,62]*100
+Zr = masterdata[:,63]*100
 
 ternary_data = np.concatenate(([Co], [Fe], [Zr], [labels]), axis=0)
 ternary_data = np.transpose(ternary_data)
 
 plotTernary.plt_ternary_save(ternary_data, tertitle='', labelNames=('Co', 'Fe', 'Zr'), scale=100,
-                             sv=True, svpth=save_path, svflnm='Figure6d_agglomerative_1d_precomputed',
-                             cbl='Agglomerative clustering (1D)', cmap='viridis', cb=True, style='h')
+                             sv=True, svpth=save_path, svflnm='Figure4c_Spectra_1d_precomputed',
+                             cbl='Spectral clustering (1D)', cmap='viridis', cb=True, style='h')

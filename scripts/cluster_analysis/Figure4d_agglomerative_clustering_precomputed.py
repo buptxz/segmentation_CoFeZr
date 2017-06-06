@@ -5,14 +5,12 @@ Created on Tue Aug 02 14:20:44 2016
 @author: fangren
 """
 
-
 import numpy as np
 import os
-from sklearn.cluster import DBSCAN
+from sklearn.cluster import AgglomerativeClustering
 import imp
 from scipy.spatial.distance import cdist
 from os.path import join
-
 
 plotTernary = imp.load_source("plt_ternary_save", "plotTernary.py")
 
@@ -31,15 +29,15 @@ def file_index(index):
 def read_data(total_num_scan, index, basefile_paths):
     data = []
     for basefile_path in basefile_paths:
-        #print basefile_path
+        # print basefile_path
         while (index <= total_num_scan):
             file_name = basefile_path + file_index(index) + '_bckgrd_subtracted.csv'
-            #file_name = basefile_path + file_index(index) + '_1D.csv'
+            # file_name = basefile_path + file_index(index) + '_1D.csv'
             if os.path.exists(file_name):
                 print 'importing', basefile_path + file_index(index) + '_bckgrd_subtracted.csv'
-                #print 'importing', basefile_path + file_index(index) + '_1D.csv'
-                spectrum = np.genfromtxt(file_name, delimiter=',', skip_header = 0)
-                data.append(spectrum[:,1][:-19])
+                # print 'importing', basefile_path + file_index(index) + '_1D.csv'
+                spectrum = np.genfromtxt(file_name, delimiter=',', skip_header=0)
+                data.append(spectrum[:, 1][:-19])
                 index += 1
             else:
                 index += 1
@@ -48,8 +46,9 @@ def read_data(total_num_scan, index, basefile_paths):
     return np.array(data)
 
 
-def DBSCAN_clustering(distance, window = 0.001, sample = 10):
-    labels = DBSCAN(eps=window, metric = 'precomputed', min_samples=sample).fit_predict(distance)
+def agglomerative(similarity, clusters):
+    cl = AgglomerativeClustering(n_clusters=clusters, affinity = 'cosine', linkage= 'average')
+    labels = cl.fit_predict(similarity)
     return labels
 
 
@@ -83,41 +82,34 @@ filename1 = path + basename1
 filename2 = path + basename2
 filename3 = path + basename3
 
-data1 = np.genfromtxt(filename1, delimiter=',', skip_header = 1)
-data2 = np.genfromtxt(filename2, delimiter=',', skip_header = 1)
-data3 = np.genfromtxt(filename3, delimiter=',', skip_header = 1)
+data1 = np.genfromtxt(filename1, delimiter=',', skip_header=1)
+data2 = np.genfromtxt(filename2, delimiter=',', skip_header=1)
+data3 = np.genfromtxt(filename3, delimiter=',', skip_header=1)
 
 masterdata = np.concatenate((data1[:, :69], data2[:, :69], data3[:, :69]))
-
 
 # use ROI to filter bad data
 ROI = masterdata[:, 15]
 masterdata = masterdata[ROI > 20000]
 data = data[ROI > 20000]
 
-
 # DBSCAN clustering
 distance = cdist(data, data, 'cosine')
+similarity = 1 - distance
 
+labels = agglomerative(similarity, 6)
 
-
-
-
-labels = DBSCAN_clustering(distance, 0.0009, 5)
 # save result
-#np.savetxt(join(save_path, 'DBSCAN_1d_precomputed.csv'), labels, delimiter=',')
-
+#np.savetxt(join(save_path, 'Spectra_1d_precomputed.csv'), labels, delimiter=',')
 
 # plotting
-Co = masterdata[:,61]*100
-Fe = masterdata[:,62]*100
-Zr = masterdata[:,63]*100
+Co = masterdata[:, 61] * 100
+Fe = masterdata[:, 62] * 100
+Zr = masterdata[:, 63] * 100
 
-
-
-ternary_data = np.concatenate(([Co],[Fe],[Zr],[labels]), axis = 0)
+ternary_data = np.concatenate(([Co], [Fe], [Zr], [labels]), axis=0)
 ternary_data = np.transpose(ternary_data)
 
-plotTernary.plt_ternary_save(ternary_data, tertitle='',  labelNames=('Co','Fe','Zr'), scale=100,
-                       sv=True, svpth=save_path, svflnm='Figure6b_DBSCAN_1d_precomputed',
-                       cbl='DBSCAN (1D)', cmap='viridis', cb=True, style='h')
+plotTernary.plt_ternary_save(ternary_data, tertitle='', labelNames=('Co', 'Fe', 'Zr'), scale=100,
+                             sv=True, svpth=save_path, svflnm='Figure4d_agglomerative_1d_precomputed',
+                             cbl='Agglomerative clustering (1D)', cmap='viridis', cb=True, style='h')

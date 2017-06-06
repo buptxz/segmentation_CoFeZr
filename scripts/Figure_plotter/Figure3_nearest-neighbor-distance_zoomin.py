@@ -61,7 +61,7 @@ ternary_data = np.concatenate(([Co],[Fe],[Zr],[np.log(nearest_neighbor)]), axis 
 ternary_data = np.transpose(ternary_data)
 
 plotTernary.plt_ternary_save(ternary_data, tertitle='',  labelNames=('Co','Fe','Zr'), scale=100,
-                       sv=True, svpth=save_path, svflnm='Figure4(a)_nearest_neighbor_1d_zoomin',
+                       sv=True, svpth=save_path, svflnm='Figure3(a)_nearest_neighbor_1d_zoomin',
                        cbl='Nearest-neighbor distances(1D)', vmin = -10.8, vmax = np.nanmax(np.log(nearest_neighbor)), cmap='viridis', cb=True, style='h')
 
 
@@ -69,5 +69,5 @@ ternary_data = np.concatenate(([Co],[Fe],[Zr],[np.log(nearest_neighbor_2d)]), ax
 ternary_data = np.transpose(ternary_data)
 
 plotTernary.plt_ternary_save(ternary_data, tertitle='',  labelNames=('Co','Fe','Zr'), scale=100,
-                       sv=True, svpth=save_path, svflnm='Figure4(b)_nearest_neighbor_2d_zoomin',
+                       sv=True, svpth=save_path, svflnm='Figure3(b)_nearest_neighbor_2d_zoomin',
                        cbl='Nearest-neighbor distances (2D)', vmin = -8.7, vmax = np.nanmax(np.log(nearest_neighbor_2d)), cmap='viridis', cb=True, style='h')

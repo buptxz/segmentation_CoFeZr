@@ -59,14 +59,14 @@ ternary_data = np.concatenate(([Co],[Fe],[Zr],[np.log(crystallinity)]), axis = 0
 ternary_data = np.transpose(ternary_data)
 
 plotTernary.plt_ternary_save(ternary_data, tertitle='',  labelNames=('Co','Fe','Zr'), scale=100,
-                       sv=True, svpth=save_path, svflnm='Figure3_crystallinity',
+                       sv=True, svpth=save_path, svflnm='Figure2_crystallinity',
                        cbl='Crystallinity', vmin = 0.2, vmax = 1.4, cmap='viridis', cb=True, style='h')
 
 ternary_data = np.concatenate(([Co],[Fe],[Zr],[np.log(texture_sum)]), axis = 0)
 ternary_data = np.transpose(ternary_data)
 
 plotTernary.plt_ternary_save(ternary_data, tertitle='',  labelNames=('Co','Fe','Zr'), scale=100,
-                       sv=True, svpth=save_path, svflnm='Figure3_texture_sum',
+                       sv=True, svpth=save_path, svflnm='Figure2_texture_sum',
                        cbl='Texture_sum', vmin = -11.1, vmax = -10.3, cmap='viridis', cb=True, style='h')
 
 
@@ -75,7 +75,7 @@ ternary_data = np.concatenate(([Co],[Fe],[Zr],[peak_number]), axis = 0)
 ternary_data = np.transpose(ternary_data)
 
 plotTernary.plt_ternary_save(ternary_data, tertitle='',  labelNames=('Co','Fe','Zr'), scale=100,
-                       sv=True, svpth=save_path, svflnm='Figure3_peak_number',
+                       sv=True, svpth=save_path, svflnm='Figure2_peak_number',
                        cbl='# of peaks', vmin = 1, vmax = 9, cmap='viridis', cb=True, style='h')
 
 
@@ -84,7 +84,7 @@ ternary_data = np.concatenate(([Co],[Fe],[Zr],[peak_width]), axis = 0)
 ternary_data = np.transpose(ternary_data)
 
 plotTernary.plt_ternary_save(ternary_data, tertitle='',  labelNames=('Co','Fe','Zr'), scale=100,
-                       sv=True, svpth=save_path, svflnm='Figure3_FWHM',
+                       sv=True, svpth=save_path, svflnm='Figure2_FWHM',
                        cbl='FWHM', vmin = 0.1, vmax = 0.829, cmap='viridis_r', cb=True, style='h')
 
 
@@ -93,12 +93,12 @@ ternary_data = np.concatenate(([Co],[Fe],[Zr],[peak_intensity]), axis = 0)
 ternary_data = np.transpose(ternary_data)
 
 plotTernary.plt_ternary_save(ternary_data, tertitle='',  labelNames=('Co','Fe','Zr'), scale=100,
-                       sv=True, svpth=save_path, svflnm='Figure3_peak_intensity',
+                       sv=True, svpth=save_path, svflnm='Figure2_peak_intensity',
                        cbl='Peak intensity', cmap='viridis', cb=True, style='h')
 
 ternary_data = np.concatenate(([Co],[Fe],[Zr],[peak_position]), axis = 0)
 ternary_data = np.transpose(ternary_data)
 
 plotTernary.plt_ternary_save(ternary_data, tertitle='',  labelNames=('Co','Fe','Zr'), scale=100,
-                       sv=True, svpth=save_path, svflnm='Figure3_peak_position',
+                       sv=True, svpth=save_path, svflnm='Figure2_peak_position',
                        cbl='Peak position', vmin = 2.51, vmax = 3.14, cmap='viridis', cb=True, style='h')
