@@ -25,7 +25,7 @@ def file_index(index):
 
 
 master_file_path = '..\\..\\data\\Masterfiles\\'
-master_file_name = 'Sample3_master_metadata.csv'
+master_file_name = 'Sample16_master_metadata.csv'
 master_file = master_file_path + master_file_name
 
 data = np.genfromtxt(master_file, delimiter=',', skip_header = 1)
@@ -34,15 +34,16 @@ data = np.genfromtxt(master_file, delimiter=',', skip_header = 1)
 ROI = data[:, 15]
 data = data[ROI > 20000]
 
-Co = data[:,57]
-Fe = data[:,58]
-Zr = data[:,59]
-peak_position = data[:,60]
-peak_width = data[:,61]
+Co = data[:,61]*100
+Fe = data[:,62]*100
+Zr = data[:,63]*100
+peak_position = data[:,64]
+peak_width = data[:,65]
 scan_num = data[:,52].astype(int)
+texture = data[:,53]
 
 spectra_file_path = '..\\..\\data\\raw_1D\\'
-spectra_basename = 'Sample3_24x24_t30_'
+spectra_basename = 'Sample16_2thin_24x24_t30_'
 save_path = '..\\..\\data\\Json_files\\'
 
 # one dataset
@@ -70,7 +71,7 @@ for i in range(len(Co)):
 
     alloy.source = Source(producer='Hattrick-Simplers Group (The University of South Carolina)')
 
-    alloy.properties = [Property(name = 'Qchi', files = FileReference(relative_path= '/Qchi_plots/' + spectra_basename + file_index(scan_num[i]) + '_Qchi.png')),
+    alloy.properties = [Property(name = 'Qchi', files = FileReference(relative_path= 'Qchi_plots/' + spectra_basename + file_index(scan_num[i]) + '_Qchi.png')),
                         Property(name = 'XRD Intensity', scalars = IntAve,
                                  conditions=[Value(name = 'Q, (Angstrom$^{-1}$)', scalars = Qlist),
                                              Value(name='Temperature', scalars='25', units='$^\\circ$C'),
@@ -79,7 +80,7 @@ for i in range(len(Co)):
                         Property(name='Maximum intensity/average intensity', scalars= round(np.nanmax(IntAve)/np.nanmean(IntAve),2)),
                         Property(name = 'Full width half maximum (FWHM) of FSDP', scalars = round(peak_width[i],2)),
                         Property(name = 'First sharp diffraction peak (FSDP) position', scalars = round(peak_position[i],2)),
-                        Property(name = 'Textured', scalars = 0)]
+                        Property(name = 'Texture', scalars = texture[i])]
 
     # specify a unique uid for each sample
     alloy.uid = 'Co'+str(int(Co[i]))+'Fe'+str(int(Fe[i]))+'Zr'+str(int(Zr[i])) + 'high_power' + str(scan_num[i])
