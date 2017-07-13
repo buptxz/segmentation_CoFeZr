@@ -60,7 +60,7 @@ data = read_data(indices2, basefile_path2) + read_data(indices1, basefile_path1)
 #
 # plt.pcolormesh(Qlist, num_of_scan, data)
 
-plt.xlabel('Q')
+plt.xlabel('Q ($\mathrm{\AA}^{-1}$)')
 plt.ylabel('intensity')
 plt.xlim((1.5, 4))
 plt.ylim((-50, 2000))
