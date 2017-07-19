@@ -8,8 +8,8 @@ Created on Fri Aug 05 16:31:12 2016
 import numpy as np
 import matplotlib.pyplot as plt
 
-path = '..\\..\\data\\Masterfiles\\'
-save_path = '..\\..\\figures\\'
+path = '..\\..\\..\\data\\Masterfiles\\'
+save_path = '..\\..\\..\\figures\\'
 
 basename1 = 'Sample1_master_metadata.csv'
 basename2 = 'Sample3_master_metadata.csv'
@@ -48,8 +48,8 @@ print Co[indices]
 print Fe[indices]
 print Zr[indices]
 
-path = '..\\..\\data\\Detailed_analysis\\'
-save_path = '..\\..\\figures\\'
+path = '..\\..\\..\\data\\Detailed_analysis\\'
+save_path = '..\\..\\..\\figures\\'
 
 Zr_10_f = path + 'Zr = 10.csv'
 Zr_30_f = path + 'Zr = 30.csv'
@@ -70,4 +70,5 @@ plt.plot(Zr_10[:,0], Zr_50[:,1], label = 'Zr = 50%')
 plt.plot(Zr_10[:,0], Zr_70[:,1], label = 'Zr = 70%')
 plt.plot(Zr_10[:,0], Zr_85[:,1], label = 'Zr = 85%')
 plt.legend()
-plt.savefig(save_path + 'detailed_analysis')
+plt.show()
+# plt.savefig(save_path + 'detailed_analysis')
