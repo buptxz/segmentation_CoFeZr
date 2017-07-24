@@ -13,30 +13,29 @@ f2_txsm = plt.imread('../../figures/Figure2_texture_sum.png')
 fig, ax = plt.subplots(nrows=2, ncols=3, gridspec_kw={'top':0.95, 'left':0.05, 'right':0.95, 'hspace':0.0, 'wspace':0.0})
 
 fntsz = 11
-
 ax[0, 0].imshow(f2_crys)
 ax[0, 0].axis('off')
-ax[0, 0].text(0.05, 0.95, '(a)', fontsize=fntsz, va='top')
+ax[0, 0].text(0.05, 0.95, '(a)', fontsize=fntsz, va='top', family='Arial')
 
 ax[0, 1].imshow(f2_txsm)
 ax[0, 1].axis('off')
-ax[0, 1].text(0.05, 0.95, '(b)', fontsize=fntsz, va='top')
+ax[0, 1].text(0.05, 0.95, '(b)', fontsize=fntsz, va='top', family='Arial')
 
 ax[0, 2].imshow(f2_pknm)
 ax[0, 2].axis('off')
-ax[0, 2].text(0.05, 0.95, '(c)', fontsize=fntsz, va='top')
+ax[0, 2].text(0.05, 0.95, '(c)', fontsize=fntsz, va='top', family='Arial')
 
 ax[1, 0].imshow(f2_pkin)
 ax[1, 0].axis('off')
-ax[1, 0].text(0.05, 0.95, '(d)', fontsize=fntsz, va='top')
+ax[1, 0].text(0.05, 0.95, '(d)', fontsize=fntsz, va='top', family='Arial')
 
 ax[1, 1].imshow(f2_fwhm)
 ax[1, 1].axis('off')
-ax[1, 1].text(0.05, 0.95, '(e)', fontsize=fntsz, va='top')
+ax[1, 1].text(0.05, 0.95, '(e)', fontsize=fntsz, va='top', family='Arial')
 
 ax[1, 2].imshow(f2_pkps)
 ax[1, 2].axis('off')
-ax[1, 2].text(0.05, 0.95, '(f)', fontsize=fntsz, va='top')
+ax[1, 2].text(0.05, 0.95, '(f)', fontsize=fntsz, va='top', family='Arial')
 
 # plt.tight_layout()
 plt.savefig('..\\..\\figures\\Figure2_compiled.tif', dpi=600)
