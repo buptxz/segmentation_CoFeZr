@@ -41,4 +41,4 @@ data = data[ROI > 20000]
 
 print data.shape
 
-np.savetxt('..//..//data//CombiView//XRD_spectra_CoFeZr.txt', data, delimiter='\t', fmt='%10.2f', comments='')
+np.savetxt('..//..//data//CombiView//XRD_spectra_CoFeZr.txt', data, delimiter='\t', fmt='%10.5f', comments='')

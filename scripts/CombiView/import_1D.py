@@ -16,16 +16,16 @@ def file_index(index):
         return str(index)
 
 
-def read_data(total_num_scan, index, basefile_paths, wavelength = 0.9762):
+def read_data(total_num_scan, index, basefile_paths, wavelength = 1.54):
     data = []
     for basefile_path in basefile_paths:
         #print basefile_path
         while (index <= total_num_scan):
-            file_name = basefile_path + file_index(index) + '_bckgrd_subtracted.csv'
-            #file_name = basefile_path + file_index(index) + '_1D.csv'
+            #file_name = basefile_path + file_index(index) + '_bckgrd_subtracted.csv'
+            file_name = basefile_path + file_index(index) + '_1D.csv'
             if os.path.exists(file_name):
-                print 'importing', basefile_path + file_index(index) + '_bckgrd_subtracted.csv'
-                #print 'importing', basefile_path + file_index(index) + '_1D.csv'
+                #print 'importing', basefile_path + file_index(index) + '_bckgrd_subtracted.csv'
+                print 'importing', basefile_path + file_index(index) + '_1D.csv'
                 spectrum = np.genfromtxt(file_name, delimiter=',', skip_header = 0)
                 if index == 1 and basefile_paths.index(basefile_path) == 0:
                     Q = spectrum[:,0][:-19]
@@ -43,7 +43,7 @@ def read_data(total_num_scan, index, basefile_paths, wavelength = 0.9762):
 
 if __name__ == '__main__':
     ## user input
-    folder_path = '..\\..\\data\\bckgrd_subtracted_1D\\'
+    folder_path = '..\\..\\data\\raw_1D\\'
     base_filename1 = 'Sample1_24x24_t30_'
     base_filename2 = 'Sample3_24x24_t30_'
     base_filename3 = 'Sample16_2thin_24x24_t30_'
@@ -60,6 +60,6 @@ if __name__ == '__main__':
 
     import matplotlib.pyplot as plt
     twoTheta = data[0]
-    for i in range(1, 50):
+    for i in range(1, 2):
         plt.plot(twoTheta, data[i])
     plt.show()
